@@ -1,4 +1,10 @@
-import {Count, Filter, repository, Where} from '@loopback/repository';
+import {
+  Count,
+  Filter,
+  repository,
+  Where,
+  type FilterExcludingWhere,
+} from '@loopback/repository';
 import {
   del,
   get,
@@ -66,7 +72,7 @@ export class TesteController {
     },
   })
   async find(@param.filter(Teste) filter?: Filter<Teste>): Promise<Teste[]> {
-    return this.testeRepository.find();
+    return this.testeRepository.find(filter);
   }
 
   @get('/testes/{id}', {
@@ -83,8 +89,12 @@ export class TesteController {
       },
     },
   })
-  async findById(@param.path.number('id') id: number): Promise<Teste> {
-    return this.testeRepository.findById(id);
+  async findById(
+    @param.path.number('id') id: number,
+    @param.filter(Teste, {exclude: 'where'})
+    filter?: FilterExcludingWhere<Teste>,
+  ): Promise<Teste> {
+    return this.testeRepository.findById(id, filter);
   }
 
   @patch('/testes/{id}', {

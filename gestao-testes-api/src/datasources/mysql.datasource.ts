@@ -7,9 +7,9 @@ const config = {
   url: '',
   host: process.env.DB_HOST ?? 'localhost',
   port: +(process.env.DB_PORT ?? 3306),
-  user: process.env.MYSQL_USER ?? 'appuser',
-  password: process.env.MYSQL_PASSWORD ?? 'apppass',
-  database: process.env.MYSQL_DATABASE ?? 'gestao_testes',
+  user: process.env.DB_USER ?? 'appuser',
+  password: process.env.DB_PASSWORD ?? 'apppass',
+  database: process.env.DB_DATABASE ?? 'gestao_testes',
 };
 
 // Observe application's life cycle to disconnect the datasource when

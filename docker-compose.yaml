@@ -1,0 +1,35 @@
+version: "3.9"
+
+services:
+
+  mysql:
+    image: inf25dw1g15/mysql
+    container_name: mysql
+    restart: always
+    ports:
+      - "3306:3306"
+
+  api:
+    image: inf25dw1g15/loopback4
+    # Testar em baixo loopback4
+    container_name: loopback4
+    restart: always
+    depends_on:
+      - mysql
+    environment:
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_USER: appuser
+      DB_PASSWORD: apppass
+      DB_NAME: gestao_testes
+    ports:
+      - "3000:3000"
+
+  admin:
+    image: inf25dw1g15/react-admin
+    container_name: react-admin
+    restart: always
+    depends_on:
+      - api
+    ports:
+      - "8080:80"
